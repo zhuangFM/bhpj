@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.netease.fimi.bhpj.domain.User">
+<mapper namespace="com.netease.fimi.bhpj.repository.ShoppingCartMapper">
+    <resultMap id="shopping-cart-query" type="com.netease.fimi.bhpj.domain.ShoppingCart">
+        <id column="id" property="id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="amount" column="amount"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
 
+    <resultMap id="shopping-cart-info-query" type="com.netease.fimi.bhpj.domain.ShoppingCartInfo">
+        <id column="id" property="id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="amount" column="amount"/>
+        <result property="userId" column="user_id"/>
+        <result property="contentPrice" column="content_price"/>
+        <result property="contentTitle" column="content_title"/>
+    </resultMap>
+
+    <insert id="addShoppingCart" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tbl_shopping_cart (`content_id`,`amount`,`user_id`) VALUES (#{contentId},#{amount},#{userId})
+    </insert>
+
+    <update id="modifyShoppingCartById">
+        UPDATE tbl_shopping_cart
+        <trim prefix="set" suffixOverrides=",">
+            <if test="null != contentId">`content_id`=#{contentId},</if>
+            <if test="null != amount">`amount`=#{amount},</if>
+            <if test="null != userId">`user_id`=#{userId},</if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>
+
+    <select id="getShoppingCartListByUserId" resultMap="shopping-cart-query">
+        SELECT * FROM tbl_shopping_cart WHERE user_id=#{userId}
+    </select>
+
+    <select id="getShoppingCartInfoListByUserId" resultMap="shopping-cart-info-query">
+        SELECT tsc.*,tct.title AS content_title,tct.price AS content_price FROM (tbl_shopping_cart tsc LEFT JOIN tbl_content tct ON tsc.content_id=tct.id) WHERE user_id=#{userId}
+    </select>
+
+    <delete id="deleteShoppingCartByUserId">
+        DELETE FROM tbl_shopping_cart WHERE user_id=#{userId}
+    </delete>
 
 
 </mapper>

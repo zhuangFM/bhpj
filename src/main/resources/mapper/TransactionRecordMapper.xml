@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.netease.fimi.bhpj.domain.User">
+<mapper namespace="com.netease.fimi.bhpj.repository.TransactionRecordMapper">
+    <resultMap id="transaction-record-info-query" type="com.netease.fimi.bhpj.domain.TransactionRecordInfo">
+        <id column="id" property="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="amount" column="amount"/>
+        <result property="singlePrice" column="single_price"/>
+        <result property="createTime" column="create_time"/>
+        <result property="contentTitle" column="content_title"/>
+        <result property="contentImageType" column="content_image_type"/>
+        <result property="contentImagePath" column="content_image_path"/>
+    </resultMap>
+
+    <insert id="addTransactionRecord" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO tbl_transaction_record (`user_id`,`content_id`,`amount`,`single_price`,`create_time`) VALUES (#{userId},#{contentId},#{amount},#{singlePrice},#{createTime})
+    </insert>
+
+    <update id="modifyTransactionRecord">
+        UPDATE tbl_transaction_record
+        <trim prefix="set" suffixOverrides=",">
+            <if test="null != userId">`user_id`=#{userId},</if>
+            <if test="null != contentId">`content_id`=#{contentId},</if>
+            <if test="null != amount">`amount`=#{amount},</if>
+            <if test="null != singlePrice">`single_price`=#{singlePrice},</if>
+            <if test="null != createTime">`create_time`=#{createTime},</if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>
+
+    <select id="getTransactionRecordInfoListByUserId" resultMap="transaction-record-info-query">
+        SELECT ttr.*,tct.title AS content_title,tct.image_type AS content_image_type,tct.image_path AS content_image_path FROM (tbl_transaction_record ttr LEFT JOIN tbl_content tct ON ttr.content_id=tct.id) WHERE user_id=#{userId}
+    </select>
+
+    <delete id="deleteTransactionRecordById">
+        DELETE FROM tbl_transaction_record WHERE id=#{id}
+    </delete>
 
 
 

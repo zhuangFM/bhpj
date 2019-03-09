@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.netease.fimi.bhpj.domain.User">
+<mapper namespace="com.netease.fimi.bhpj.repository.ContentMapper">
+    <resultMap id="content-query" type="com.netease.fimi.bhpj.domain.Content">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="imageType" column="image_type"/>
+        <result property="imagePath" column="image_path"/>
+        <result property="summary" column="summary"/>
+        <result property="detail" column="detail"/>
+        <result property="price" column="price"/>
+        <result property="selled" column="selled"/>
+        <result property="createTime" column="create_time"/>
+        <result property="buyerId" column="buyer_id"/>
+    </resultMap>
 
+    <insert id="addContent" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO tbl_content (`title`,`image_type`,`image_path`,`summary`,`detail`,`price`,`selled`,`create_time`,`buyer_id`) VALUES (#{title},#{imageType},#{imagePath},#{summary},#{detail},#{price},#{selled},#{createTime},#{buyerId})
+    </insert>
+
+    <update id="modifyContentById">
+        UPDATE tbl_content
+        <trim prefix="set" suffixOverrides=",">
+            <if test="null != title">`title`=#{title},</if>
+            <if test="null != imageType">`image_type`=#{imageType},</if>
+            <if test="null != imagePath">`image_path`=#{imagePath},</if>
+            <if test="null != summary">`summary`=#{summary},</if>
+            <if test="null != detail">`detail`=#{detail},</if>
+            <if test="null != price">`price`=#{price},</if>
+            <if test="null != selled">`selled`=#{selled},</if>
+            <if test="null != createTime">`create_time`=#{createTime},</if>
+            <if test="null != buyerId">`buyer_id`=#{buyerId},</if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>
+
+    <select id="getContentById" resultMap="content-query">
+        SELECT * FROM tbl_content WHERE id=#{id}
+    </select>
+
+    <select id="getAllContentList" resultMap="content-query">
+        SELECT * FROM tbl_content
+    </select>
+
+    <delete id="deleteContentById">
+        DELETE FROM tbl_content WHERE id=#{id}
+    </delete>
 
 
 </mapper>

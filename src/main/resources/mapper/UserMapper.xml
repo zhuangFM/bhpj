@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.netease.fimi.bhpj.domain.User">
+<mapper namespace="com.netease.fimi.bhpj.repository.UserMapper">
+    <resultMap id="user-query" type="com.netease.fimi.bhpj.domain.User">
+        <id property="id" column="id"/>
+        <result property="uname" column="uname"/>
+        <result property="password" column="password"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
 
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tbl_user (`uname`,`password`,`type`,`create_time`) VALUES (#{uname},#{password},#{type},#{createTime})
+    </insert>
 
+    <update id="modifyUserById">
+        UPDATE tbl_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="null != uname">`uname`=#{uname},</if>
+            <if test="null != password">`password`=#{password},</if>
+            <if test="null != type">`type`=#{type},</if>
+            <if test="null != createTime">`create_time`=#{createTime},</if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>
+
+    <select id="getUserById" resultMap="user-query">
+        SELECT * FROM tbl_user WHERE id=#{id}
+    </select>
+
+    <select id="getAllUserList" resultMap="user-query">
+        SELECT * FROM tbl_user
+    </select>
+
+    <delete id="deleteUserById">
+        DELETE FROM tbl_user WHERE id=#{id}
+    </delete>
 
 </mapper>
