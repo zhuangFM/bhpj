@@ -29,6 +29,10 @@
         SELECT * FROM tbl_user WHERE id=#{id}
     </select>
 
+    <select id="getUserByUname" resultMap="user-query">
+        SELECT * FROM tbl_user WHERE uname=#{uname}
+    </select>
+
     <select id="getAllUserList" resultMap="user-query">
         SELECT * FROM tbl_user
     </select>
