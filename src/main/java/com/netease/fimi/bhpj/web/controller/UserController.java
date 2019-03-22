@@ -4,6 +4,8 @@ import com.google.common.collect.Maps;
 import com.netease.fimi.bhpj.domain.User;
 import com.netease.fimi.bhpj.service.UserService;
 import com.netease.fimi.bhpj.util.MD5Helper;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "用户登陆", notes = "传入user 进行登陆操作")
+    @ApiImplicitParam(name = "user", value = "user对象", required = true, dataType = "User")
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     private Map<String, Object> login(@RequestBody User user) {
