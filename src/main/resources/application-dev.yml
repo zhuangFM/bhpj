@@ -15,3 +15,7 @@ spring:
       test-on-borrow: true
       filters: stat,wall
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+image:
+  upload:
+    basePath: E:\graduation_project\gdpj-admin\static\images\&E:\graduation_project\gdpj-web\static\images\
