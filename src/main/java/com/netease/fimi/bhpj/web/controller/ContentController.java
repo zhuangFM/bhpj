@@ -87,7 +87,7 @@ public class ContentController {
         Content content = contentService.getContentById(id);
         log.info("access api /upload_foodstuff_images where id is {}", id);
 
-        String folderPath1 = this.basePath.split("&")[0] + id;
+        String folderPath1 = this.basePath + id;
         File folder1 = new File(folderPath1);
         if (!folder1.exists()) {
             folder1.mkdir();
