@@ -43,6 +43,18 @@ public class ContentController {
         return json;
     }
 
+    @ApiOperation(value = " 根据id获取单个content", notes = "根据id获取单个content")
+    @ApiImplicitParam(name = "id", value = "内容content的主键id", required = true, dataType = "Integer")
+    @ResponseBody
+    @RequestMapping(value = "/get_content_by_id", method = RequestMethod.GET)
+    public Map<String, Object> getContentById(@RequestParam("id") Integer id) {
+        Map<String, Object> json = Maps.newHashMap();
+        Content content = contentService.getContentById(id);
+        json.put("content", content);
+        json.put("code", 1);
+        return json;
+    }
+
     @ApiOperation(value = "新增或者修改content", notes = "传入content 后台根据id是否为null判断是新增还是修改")
     @ApiImplicitParam(name = "content", value = "内容详细实体content", required = true, dataType = "Content")
     @ResponseBody
