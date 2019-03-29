@@ -27,8 +27,10 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
-    @Value("${image.upload.basePath}")
+    @Value("${image.upload.basePatForMac}")
     private String basePath;
+
+
 
     private static Logger log = LoggerFactory.getLogger(ContentController.class);
 
@@ -65,9 +67,11 @@ public class ContentController {
             contentService.addContent(content);
             log.info("add a content {}", content);
             json.put("msg", "add a content");
+            json.put("content", content);
         } else {
             contentService.modifyContentById(content);
             log.info("modify a content {}", content);
+            json.put("content", content);
             json.put("msg", String.format("modify a content where id is %s", content.getId()));
         }
         return json;
@@ -87,7 +91,7 @@ public class ContentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/upload_content_images",method = RequestMethod.POST)
+    @RequestMapping(value = "/upload_content_image",method = RequestMethod.POST)
     @ApiOperation(value = "上传content 本地图片", notes = "传入content的id 和 file")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "file", value = "需要上传的图片 file", required = true, dataType = "MultipartFile"),

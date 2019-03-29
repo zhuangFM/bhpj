@@ -2,5 +2,5 @@ spring:
   application:
     name: big-homework-project
   profiles:
-    active: prod
+    active: dev
 

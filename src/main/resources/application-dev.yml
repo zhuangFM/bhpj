@@ -19,3 +19,4 @@ spring:
 image:
   upload:
     basePath: E:\Resource\webResource\shoppingmall\online-mall\static\images\
+    basePatForMac: /Users/zhuangfengming/graduation_project/bhpj-web/static/image/
