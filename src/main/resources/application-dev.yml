@@ -18,5 +18,5 @@ spring:
 
 image:
   upload:
-    basePath: E:\Resource\webResource\shoppingmall\online-mall\static\images\
-    basePatForMac: /Users/zhuangfengming/graduation_project/bhpj-web/static/image/
+    basePath: E:\git-project\bhpj-web\static\images\
+    basePathForMac: /Users/zhuangfengming/graduation_project/bhpj-web/static/images/

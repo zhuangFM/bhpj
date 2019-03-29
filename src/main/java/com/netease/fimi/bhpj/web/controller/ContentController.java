@@ -27,7 +27,7 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
-    @Value("${image.upload.basePatForMac}")
+    @Value("${image.upload.basePath}")
     private String basePath;
 
 
