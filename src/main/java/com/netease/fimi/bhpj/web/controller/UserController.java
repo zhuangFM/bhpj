@@ -31,7 +31,7 @@ public class UserController {
         if (null == temp) {
             json.put("code", 0);
             json.put("msg", "用户不存在！");
-        } else if (MD5Helper.checkMD5Str(user.getPassword(), temp.getPassword())) {
+        } else if (MD5Helper.checkMD5Str(temp.getPassword(),user.getPassword())) {
             json.put("code", 1);
             json.put("user", temp);
             json.put("msg", "登录成功！");
