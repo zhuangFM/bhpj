@@ -1,8 +1,10 @@
 package com.netease.fimi.bhpj.web.controller;
 
 import com.google.common.collect.Maps;
+import com.netease.fimi.bhpj.domain.Content;
 import com.netease.fimi.bhpj.domain.TransactionRecord;
 import com.netease.fimi.bhpj.domain.TransactionRecordInfo;
+import com.netease.fimi.bhpj.service.ContentService;
 import com.netease.fimi.bhpj.service.TransactionRecordService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +22,9 @@ import java.util.Map;
 public class TransactionRecordController {
     @Autowired
     private TransactionRecordService transactionRecordService;
+
+    @Autowired
+    private ContentService contentService;
     private static Logger log = LoggerFactory.getLogger(TransactionRecordController.class);
 
     @ApiOperation(value = "根据userId获取改用户的交易记录", notes = "传入userId 后台返回该用户的交易记录list")
@@ -43,6 +48,10 @@ public class TransactionRecordController {
         for (TransactionRecord item : transactionRecordList) {
             if (null == item.getId()) {
                 transactionRecordService.addTransactionRecord(item);
+                Content content = contentService.getContentById(item.getContentId());
+                content.setSelled(content.getSelled() + item.getAmount());
+                content.setBuyerId(content.getBuyerId() == null ? (String.valueOf(item.getUserId())) : (content.getBuyerId() + "," + item.getUserId()));
+                contentService.modifyContentById(content);
                 log.info("add a transactionRecord {}", item);
             } else {
                 transactionRecordService.modifyTransactionRecord(item);
