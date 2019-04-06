@@ -2,7 +2,9 @@ package com.netease.fimi.bhpj.web.controller;
 
 import com.google.common.collect.Maps;
 import com.netease.fimi.bhpj.domain.Content;
+import com.netease.fimi.bhpj.domain.User;
 import com.netease.fimi.bhpj.service.ContentService;
+import com.netease.fimi.bhpj.util.ConstField;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -27,9 +29,8 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
-    @Value("${image.upload.basePathForMac}")
+    @Value("${image.upload.basePath}")
     private String basePath;
-
 
 
     private static Logger log = LoggerFactory.getLogger(ContentController.class);
@@ -37,10 +38,11 @@ public class ContentController {
     @ApiOperation(value = "获取所有的content", notes = "获取所有的content")
     @ResponseBody
     @RequestMapping(value = "/get_all_content_list", method = RequestMethod.GET)
-    public Map<String, Object> getAllContentList() {
+    public Map<String, Object> getAllContentList(HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         List<Content> contentList = contentService.getAllContentList();
         json.put("contentList", contentList);
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         json.put("code", 1);
         return json;
     }
@@ -49,10 +51,11 @@ public class ContentController {
     @ApiImplicitParam(name = "id", value = "内容content的主键id", required = true, dataType = "Integer")
     @ResponseBody
     @RequestMapping(value = "/get_content_by_id", method = RequestMethod.GET)
-    public Map<String, Object> getContentById(@RequestParam("id") Integer id) {
+    public Map<String, Object> getContentById(@RequestParam("id") Integer id, HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         Content content = contentService.getContentById(id);
         json.put("content", content);
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         json.put("code", 1);
         return json;
     }
@@ -61,7 +64,7 @@ public class ContentController {
     @ApiImplicitParam(name = "content", value = "内容详细实体content", required = true, dataType = "Content")
     @ResponseBody
     @RequestMapping(value = "/save_content", method = RequestMethod.POST)
-    public Map<String, Object> saveContent(@RequestBody Content content) {
+    public Map<String, Object> saveContent(@RequestBody Content content, HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         if (null == content.getId()) {
             contentService.addContent(content);
@@ -74,6 +77,7 @@ public class ContentController {
             json.put("content", content);
             json.put("msg", String.format("modify a content where id is %s", content.getId()));
         }
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         return json;
     }
 
@@ -81,17 +85,18 @@ public class ContentController {
     @ApiImplicitParam(name = "id", value = "内容content的主键id", required = true, dataType = "Integer")
     @ResponseBody
     @RequestMapping(value = "/delete_content_by_id", method = RequestMethod.GET)
-    public Map<String, Object> deleteContentById(@RequestParam("id") Integer id) {
+    public Map<String, Object> deleteContentById(@RequestParam("id") Integer id, HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         log.info("delete a content where id is {}", id);
         json.put("msg", String.format("delete a content where id is %d", id));
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         json.put("code", 1);
         contentService.deleteContentById(id);
         return json;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/upload_content_image",method = RequestMethod.POST)
+    @RequestMapping(value = "/upload_content_image", method = RequestMethod.POST)
     @ApiOperation(value = "上传content 本地图片", notes = "传入content的id 和 file")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "file", value = "需要上传的图片 file", required = true, dataType = "MultipartFile"),
@@ -123,6 +128,7 @@ public class ContentController {
 
         Map<String, Object> json = Maps.newHashMap();
         json.put("msg", "successfully! upload content image where id = " + id);
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         return json;
     }
 }

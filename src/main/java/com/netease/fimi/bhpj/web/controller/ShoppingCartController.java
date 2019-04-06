@@ -3,7 +3,9 @@ package com.netease.fimi.bhpj.web.controller;
 import com.google.common.collect.Maps;
 import com.netease.fimi.bhpj.domain.ShoppingCart;
 import com.netease.fimi.bhpj.domain.ShoppingCartInfo;
+import com.netease.fimi.bhpj.domain.User;
 import com.netease.fimi.bhpj.service.ShoppingCartService;
+import com.netease.fimi.bhpj.util.ConstField;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -26,18 +29,19 @@ public class ShoppingCartController {
     @ApiImplicitParam(name = "userId", value = "用户userId", required = true, dataType = "Integer")
     @RequestMapping(value = "/get_shoppingCart_info_list_by_userId", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> getShoppingCartInfoListByUserId(@RequestParam("userId") Integer userId) {
+    public Map<String, Object> getShoppingCartInfoListByUserId(@RequestParam("userId") Integer userId, HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         List<ShoppingCartInfo> shoppingCartInfoList = shoppingCartService.getShoppingCartInfoListByUserId(userId);
         json.put("shoppingCartInfoList", shoppingCartInfoList);
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         json.put("code", 1);
         return json;
     }
 
-    @ApiOperation(value = "新增或者修改shoppingCart", notes = "此接口可能用不上！！")
+    @ApiOperation(value = "新增shoppingCart", notes = "新增shoppingCart")
     @ResponseBody
     @RequestMapping(value = "/save_shoppingCart", method = RequestMethod.POST)
-    public Map<String, Object> saveShoppingCart(@RequestBody ShoppingCart shoppingCart) {
+    public Map<String, Object> saveShoppingCart(@RequestBody ShoppingCart shoppingCart, HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         if (null == shoppingCart.getId()) {
             shoppingCartService.addShoppingCart(shoppingCart);
@@ -48,6 +52,7 @@ public class ShoppingCartController {
             log.info("modify a shoppingCart {}", shoppingCart);
             json.put("msg", String.format("modify a shoppingCart where id is %d", shoppingCart.getId()));
         }
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         return json;
     }
 
@@ -55,11 +60,12 @@ public class ShoppingCartController {
     @ApiImplicitParam(name = "userId", value = "用户userId", required = true, dataType = "Integer")
     @ResponseBody
     @RequestMapping(value = "delete_shoppingCart_by_userId", method = RequestMethod.GET)
-    public Map<String, Object> deleteShoppingCartByUserId(@RequestParam("userId") Integer userId) {
+    public Map<String, Object> deleteShoppingCartByUserId(@RequestParam("userId") Integer userId, HttpServletRequest request) {
         Map<String, Object> json = Maps.newHashMap();
         shoppingCartService.deleteShoppingCartByUserId(userId);
         log.info("delete shoppingCarts where userId is {}", userId);
         json.put("msg", String.format("delete shoppingCarts where userId is {}", userId));
+        json.put("user", (User) request.getSession().getAttribute(ConstField.USER));
         return json;
     }
 }
