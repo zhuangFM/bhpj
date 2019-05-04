@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.fimi.bhpj.repository.AddressMapper">
+    <resultMap id="address-query" type="com.netease.fimi.bhpj.domain.Address">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="address" column="address"/>
+        <result property="zipcode" column="zipcode"/>
+    </resultMap>
+
+    <insert id="addAddress" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO address (`user_id`,`name`,`telephone`,`address`,`zipcode`) VALUES (#{userId},#{name},#{telephone},#{address},#{zipcode})
+    </insert>
+
+    <update id="modifyAddressById" >
+        UPDATE address
+        <trim prefix="set" suffixOverrides=",">
+            <if test="null != userId">`user_id`=#{userId},</if>
+            <if test="null != name">`name`=#{name},</if>
+            <if test="null != telephone">`telephone`=#{telephone},</if>
+            <if test="null != address">`address`=#{address},</if>
+            <if test="null != zipcode">`zipcode`=#{zipcode},</if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>
+
+    <select id="getAddressById" resultMap="address-query">
+        SELECT * FROM address WHERE id=#{id}
+    </select>
+
+    <select id="getAddressListByUserId" resultMap="address-query">
+        SELECT * FROM address WHERE user_id=#{userId}
+    </select>
+
+    <delete id="deleteAddressById">
+        DELETE FROM address WHERE id=#{id}
+    </delete>
+
+
+</mapper>

@@ -4,8 +4,8 @@ public class User {
     private Integer id;
     private String uname;
     private String password;
-    private String createTime;
     private Integer type;
+    private String phone;
 
     public Integer getId() {
         return id;
@@ -31,14 +31,6 @@ public class User {
         this.password = password;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
     public Integer getType() {
         return type;
     }
@@ -47,15 +39,22 @@ public class User {
         this.type = type;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", uname='" + uname + '\'' +
                 ", password='" + password + '\'' +
-                ", createTime='" + createTime + '\'' +
                 ", type=" + type +
+                ", phone='" + phone + '\'' +
                 '}';
     }
-
 }

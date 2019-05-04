@@ -52,10 +52,6 @@ public class TransactionRecordController {
         for (TransactionRecord item : transactionRecordList) {
             if (null == item.getId()) {
                 transactionRecordService.addTransactionRecord(item);
-                Content content = contentService.getContentById(item.getContentId());
-                content.setSelled(content.getSelled() + item.getAmount());
-                content.setBuyerId(content.getBuyerId() == null ? (String.valueOf(item.getUserId())) : (content.getBuyerId() + "," + item.getUserId()));
-                contentService.modifyContentById(content);
                 log.info("add a transactionRecord {}", item);
             } else {
                 transactionRecordService.modifyTransactionRecord(item);

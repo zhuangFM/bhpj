@@ -122,7 +122,6 @@ public class ContentController {
 
         //update content
         content.setImagePath(file.getOriginalFilename());
-        content.setImageType(1);
         contentService.modifyContentById(content);
         log.info("uploaded a image where path is {}", path1);
 

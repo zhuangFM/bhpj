@@ -16,7 +16,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        user.setCreateTime(TimeGetter.getCurrentTimeStr());
         userMapper.addUser(user);
     }
 

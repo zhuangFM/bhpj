@@ -3,14 +3,12 @@ package com.netease.fimi.bhpj.domain;
 public class Content {
     private Integer id;
     private String title;
-    private Integer imageType;
     private String imagePath;
     private String summary;
     private String detail;
     private Integer price;
-    private Integer selled;
-    private String createTime;
-    private String buyerId;
+    private String departure;
+    private Integer contain;
 
     public Integer getId() {
         return id;
@@ -26,14 +24,6 @@ public class Content {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Integer getImageType() {
-        return imageType;
-    }
-
-    public void setImageType(Integer imageType) {
-        this.imageType = imageType;
     }
 
     public String getImagePath() {
@@ -68,28 +58,20 @@ public class Content {
         this.price = price;
     }
 
-    public Integer getSelled() {
-        return selled;
+    public String getDeparture() {
+        return departure;
     }
 
-    public void setSelled(Integer selled) {
-        this.selled = selled;
+    public void setDeparture(String departure) {
+        this.departure = departure;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public Integer getContain() {
+        return contain;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(String buyerId) {
-        this.buyerId = buyerId;
+    public void setContain(Integer contain) {
+        this.contain = contain;
     }
 
     @Override
@@ -97,14 +79,12 @@ public class Content {
         return "Content{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", imageType=" + imageType +
                 ", imagePath='" + imagePath + '\'' +
                 ", summary='" + summary + '\'' +
                 ", detail='" + detail + '\'' +
                 ", price=" + price +
-                ", selled=" + selled +
-                ", createTime='" + createTime + '\'' +
-                ", buyerId='" + buyerId + '\'' +
+                ", departure='" + departure + '\'' +
+                ", contain=" + contain +
                 '}';
     }
 }

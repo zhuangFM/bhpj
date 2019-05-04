@@ -7,11 +7,11 @@
         <result property="uname" column="uname"/>
         <result property="password" column="password"/>
         <result property="type" column="type"/>
-        <result property="createTime" column="create_time"/>
+        <result property="phone" column="phone"/>
     </resultMap>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO tbl_user (`uname`,`password`,`type`,`create_time`) VALUES (#{uname},#{password},#{type},#{createTime})
+        INSERT INTO tbl_user (`uname`,`password`,`type`,`phone`) VALUES (#{uname},#{password},#{type},#{phone})
     </insert>
 
     <update id="modifyUserById">
@@ -20,7 +20,7 @@
             <if test="null != uname">`uname`=#{uname},</if>
             <if test="null != password">`password`=#{password},</if>
             <if test="null != type">`type`=#{type},</if>
-            <if test="null != createTime">`create_time`=#{createTime},</if>
+            <if test="null != phone">`phone`=#{phone},</if>
         </trim>
         WHERE `id`=#{id}
     </update>

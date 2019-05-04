@@ -16,8 +16,6 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public void addContent(Content content) {
-        content.setCreateTime(TimeGetter.getCurrentTimeStr());
-        content.setSelled(0);
         contentMapper.addContent(content);
     }
 

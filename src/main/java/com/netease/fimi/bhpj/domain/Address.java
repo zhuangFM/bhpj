@@ -1,12 +1,12 @@
 package com.netease.fimi.bhpj.domain;
 
-public class TransactionRecord {
+public class Address {
     private Integer id;
     private Integer userId;
-    private Integer contentId;
-    private Integer amount;
-    private Integer totalMoney;
+    private String name;
+    private String telephone;
     private String address;
+    private String zipcode;
 
     public Integer getId() {
         return id;
@@ -24,28 +24,20 @@ public class TransactionRecord {
         this.userId = userId;
     }
 
-    public Integer getContentId() {
-        return contentId;
+    public String getName() {
+        return name;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    public Integer getTotalMoney() {
-        return totalMoney;
-    }
-
-    public void setTotalMoney(Integer totalMoney) {
-        this.totalMoney = totalMoney;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getAddress() {
@@ -56,18 +48,23 @@ public class TransactionRecord {
         this.address = address;
     }
 
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
     @Override
     public String toString() {
-        return "TransactionRecord{" +
+        return "Address{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", contentId=" + contentId +
-                ", amount=" + amount +
-                ", totalMoney=" + totalMoney +
+                ", name='" + name + '\'' +
+                ", telephone='" + telephone + '\'' +
                 ", address='" + address + '\'' +
+                ", zipcode='" + zipcode + '\'' +
                 '}';
     }
 }
-
-
-
