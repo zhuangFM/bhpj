@@ -15,6 +15,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/logout")
                 .excludePathPatterns("/user/save_user")
+                .excludePathPatterns("/content/get_all_content_list")
                 .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
         super.addInterceptors(registry);
     }
