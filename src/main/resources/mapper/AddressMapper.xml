@@ -12,11 +12,11 @@
     </resultMap>
 
     <insert id="addAddress" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        INSERT INTO address (`user_id`,`name`,`telephone`,`address`,`zipcode`) VALUES (#{userId},#{name},#{telephone},#{address},#{zipcode})
+        INSERT INTO tbl_address (`user_id`,`name`,`telephone`,`address`,`zipcode`) VALUES (#{userId},#{name},#{telephone},#{address},#{zipcode})
     </insert>
 
     <update id="modifyAddressById" >
-        UPDATE address
+        UPDATE tbl_address
         <trim prefix="set" suffixOverrides=",">
             <if test="null != userId">`user_id`=#{userId},</if>
             <if test="null != name">`name`=#{name},</if>
@@ -28,15 +28,15 @@
     </update>
 
     <select id="getAddressById" resultMap="address-query">
-        SELECT * FROM address WHERE id=#{id}
+        SELECT * FROM tbl_address WHERE id=#{id}
     </select>
 
     <select id="getAddressListByUserId" resultMap="address-query">
-        SELECT * FROM address WHERE user_id=#{userId}
+        SELECT * FROM tbl_address WHERE user_id=#{userId}
     </select>
 
     <delete id="deleteAddressById">
-        DELETE FROM address WHERE id=#{id}
+        DELETE FROM tbl_address WHERE id=#{id}
     </delete>
 
 
