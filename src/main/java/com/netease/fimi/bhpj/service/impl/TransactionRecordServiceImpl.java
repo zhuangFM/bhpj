@@ -18,6 +18,7 @@ public class TransactionRecordServiceImpl implements TransactionRecordService {
 
     @Override
     public void addTransactionRecord(TransactionRecord transactionRecord) {
+        transactionRecord.setCreateTime(TimeGetter.getCurrentTimeStr());
         transactionRecordMapper.addTransactionRecord(transactionRecord);
     }
 

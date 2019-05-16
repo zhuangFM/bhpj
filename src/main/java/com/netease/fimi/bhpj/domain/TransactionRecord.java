@@ -7,6 +7,7 @@ public class TransactionRecord {
     private Integer amount;
     private Integer totalMoney;
     private String address;
+    private String createTime;
 
     public Integer getId() {
         return id;
@@ -56,6 +57,14 @@ public class TransactionRecord {
         this.address = address;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "TransactionRecord{" +
@@ -65,6 +74,7 @@ public class TransactionRecord {
                 ", amount=" + amount +
                 ", totalMoney=" + totalMoney +
                 ", address='" + address + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

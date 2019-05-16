@@ -11,10 +11,11 @@
         <result property="address" column="address"/>
         <result property="contentTitle" column="content_title"/>
         <result property="contentImagePath" column="content_image_path"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <insert id="addTransactionRecord" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO tbl_transaction_record (`user_id`,`content_id`,`amount`,`total_money`,`address`) VALUES (#{userId},#{contentId},#{amount},#{totalMoney},#{address})
+        INSERT INTO tbl_transaction_record (`user_id`,`content_id`,`amount`,`total_money`,`address`,`create_time`) VALUES (#{userId},#{contentId},#{amount},#{totalMoney},#{address},#{createTime})
     </insert>
 
     <update id="modifyTransactionRecord">
@@ -25,6 +26,7 @@
             <if test="null != amount">`amount`=#{amount},</if>
             <if test="null != totalMoney">`total_money`=#{totalMoney},</if>
             <if test="null != address">`address`=#{address},</if>
+            <if test="null != createTime">`create_time`=#{createTime},</if>
         </trim>
         WHERE `id`=#{id}
     </update>
