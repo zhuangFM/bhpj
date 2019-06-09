@@ -33,4 +33,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void deleteShoppingCartByUserId(Integer userId) {
         shoppingCartMapper.deleteShoppingCartByUserId(userId);
     }
+
+    @Override
+    public void deleteShoppingCartById(Integer id) {
+        shoppingCartMapper.deleteShoppingCartById(id);
+    }
 }

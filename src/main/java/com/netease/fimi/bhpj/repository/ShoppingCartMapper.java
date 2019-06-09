@@ -19,4 +19,6 @@ public interface ShoppingCartMapper {
 
     void deleteShoppingCartByUserId(@Param("userId") Integer userId);
 
+    void deleteShoppingCartById(@Param("id") Integer id);
+
 }

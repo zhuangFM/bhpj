@@ -13,4 +13,6 @@ public interface ShoppingCartService {
     List<ShoppingCartInfo> getShoppingCartInfoListByUserId(Integer userId);
 
     void deleteShoppingCartByUserId(Integer userId);
+
+    void deleteShoppingCartById(Integer id);
 }
